@@ -17,10 +17,10 @@ document.getElementById("rsvpForm").addEventListener("submit", function(event) {
     botao.innerText = "Enviando...";
   
     // URL do Google Forms (substitua pelo seu ID)
-    let formURL = "https://docs.google.com/forms/d/e/SEU_FORM_ID/formResponse";
+    let formURL = "https://docs.google.com/forms/d/e/1FAIpQLSd4TGM-HLwkLPxrHf9pqIoMuAhf8q7CuZOTRYDAHoX3St_2XA/formResponse";
     let formData = new FormData();
-    formData.append("entry.SEU_ENTRY_ID_NOME", nome);
-    formData.append("entry.SEU_ENTRY_ID_CONFIRMACAO", confirmacao);
+    formData.append("entry.478069026", nome);
+    formData.append("entry.763904575", confirmacao);
   
     fetch(formURL, { method: "POST", body: formData, mode: "no-cors" })
       .then(() => {
