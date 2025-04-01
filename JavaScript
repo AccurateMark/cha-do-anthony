@@ -1,0 +1,40 @@
+document.getElementById("rsvpForm").addEventListener("submit", function(event) {
+    event.preventDefault();
+  
+    let nome = document.getElementById("nome").value.trim();
+    let confirmacao = document.getElementById("confirmacao").value;
+    let mensagem = document.getElementById("mensagem");
+    let botao = document.getElementById("btnEnviar");
+  
+    if (nome === "" || confirmacao === "") {
+      mensagem.innerText = "Por favor, preencha todos os campos!";
+      mensagem.style.color = "red";
+      return;
+    }
+  
+    // Desativa o botão enquanto envia
+    botao.disabled = true;
+    botao.innerText = "Enviando...";
+  
+    // URL do Google Forms (substitua pelo seu ID)
+    let formURL = "https://docs.google.com/forms/d/e/SEU_FORM_ID/formResponse";
+    let formData = new FormData();
+    formData.append("entry.SEU_ENTRY_ID_NOME", nome);
+    formData.append("entry.SEU_ENTRY_ID_CONFIRMACAO", confirmacao);
+  
+    fetch(formURL, { method: "POST", body: formData, mode: "no-cors" })
+      .then(() => {
+        mensagem.innerText = "🎉 Confirmação enviada com sucesso! Obrigado!";
+        mensagem.style.color = "green";
+        botao.innerText = "Confirmado!";
+      })
+      .catch(() => {
+        mensagem.innerText = "⚠️ Erro ao enviar confirmação. Tente novamente.";
+        mensagem.style.color = "red";
+        botao.disabled = false;
+        botao.innerText = "Confirmar Presença";
+      });
+  
+    // Limpa os campos após o envio
+    document.getElementById("rsvpForm").reset();
+  });

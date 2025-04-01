@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chá de Fraldas - Confirme sua Presença</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+  <div class="container">
+    <h1>🧸 Chá do Anthony Mikhael 🎈</h1>
+    <p>Estamos ansiosos para celebrar com você!<br> Confirme sua presença para o dia <strong>14/06/2025</strong>.</p>
+
+    <form id="rsvpForm">
+      <label for="nome">
+        <i class="fas fa-user"></i>
+        Seu Nome:
+      </label>
+      <input type="text" id="nome" placeholder="Digite seu nome" required />
+
+      <label for="confirmacao">
+        <i class="fas fa-calendar-check"></i>
+        Você poderá comparecer?
+      </label>
+      <select id="confirmacao" required>
+        <option value="">Selecione uma opção</option>
+        <option value="Sim">Sim, estarei presente!</option>
+        <option value="Não">Infelizmente, não poderei ir</option>
+      </select>
+
+      <button type="submit" id="btnEnviar">Confirmar Presença</button>
+      <p id="mensagem"></p>
+    </form>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
