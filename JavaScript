@@ -1,40 +1,35 @@
-document.getElementById("rsvpForm").addEventListener("submit", function(event) {
-    event.preventDefault();
-  
-    let nome = document.getElementById("nome").value.trim();
-    let confirmacao = document.getElementById("confirmacao").value;
-    let mensagem = document.getElementById("mensagem");
-    let botao = document.getElementById("btnEnviar");
-  
-    if (nome === "" || confirmacao === "") {
-      mensagem.innerText = "Por favor, preencha todos os campos!";
+document.getElementById("rsvpForm").addEventListener("submit", function (event) {
+  event.preventDefault();
+
+  const nome = document.getElementById("nome").value;
+  const confirmacao = document.getElementById("confirmacao").value;
+  const mensagem = document.getElementById("mensagem");
+
+  if (!nome || !confirmacao) {
+      mensagem.textContent = "Por favor, preencha todos os campos.";
       mensagem.style.color = "red";
       return;
-    }
-  
-    // Desativa o botão enquanto envia
-    botao.disabled = true;
-    botao.innerText = "Enviando...";
-  
-    // URL do Google Forms (substitua pelo seu ID)
-    let formURL = "https://docs.google.com/forms/d/e/1FAIpQLSd4TGM-HLwkLPxrHf9pqIoMuAhf8q7CuZOTRYDAHoX3St_2XA/formResponse";
-    let formData = new FormData();
-    formData.append("entry.478069026", nome);
-    formData.append("entry.763904575", confirmacao);
-  
-    fetch(formURL, { method: "POST", body: formData, mode: "no-cors" })
-      .then(() => {
-        mensagem.innerText = "🎉 Confirmação enviada com sucesso! Obrigado!";
-        mensagem.style.color = "green";
-        botao.innerText = "Confirmado!";
-      })
-      .catch(() => {
-        mensagem.innerText = "⚠️ Erro ao enviar confirmação. Tente novamente.";
-        mensagem.style.color = "red";
-        botao.disabled = false;
-        botao.innerText = "Confirmar Presença";
-      });
-  
-    // Limpa os campos após o envio
-    document.getElementById("rsvpForm").reset();
+  }
+
+  // URL do Google Apps Script (substitua pela sua)
+  const scriptURL = "https://script.google.com/macros/s/AKfycbwfwrMuPOGR5A1YoouB00BQfjXk8tAQ8jumYO6anKx-0e9imQq1qxrGa_8S9Cal3tc/exec";
+
+  const formData = new URLSearchParams();
+  formData.append("nome", nome);
+  formData.append("confirmacao", confirmacao);
+
+  fetch(scriptURL, {
+      method: "POST",
+      body: formData
+  })
+  .then(response => response.text())
+  .then(text => {
+      mensagem.textContent = "Confirmação enviada com sucesso!";
+      mensagem.style.color = "green";
+      document.getElementById("rsvpForm").reset();
+  })
+  .catch(() => {
+      mensagem.textContent = "Erro ao enviar a confirmação.";
+      mensagem.style.color = "red";
   });
+});
