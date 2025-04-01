@@ -1,6 +1,13 @@
 document.getElementById("rsvpForm").addEventListener("submit", function (event) {
   event.preventDefault();
 
+  // Verifica se já foi enviado
+  const formEnviado = document.getElementById("rsvpForm").getAttribute("data-enviado");
+  if (formEnviado) {
+    // Caso já tenha sido enviado, não faz nada
+    return;
+  }
+
   const nome = document.getElementById("nome").value;
   const confirmacao = document.getElementById("confirmacao").value;
   const mensagem = document.getElementById("mensagem");
@@ -10,6 +17,14 @@ document.getElementById("rsvpForm").addEventListener("submit", function (event) 
       mensagem.style.color = "red";
       return;
   }
+
+  // Marca o formulário como enviado para não permitir envio repetido
+  document.getElementById("rsvpForm").setAttribute("data-enviado", "true");
+
+  // Desabilita o botão e altera o texto para indicar que já foi enviado
+  const botao = document.getElementById("btnEnviar");
+  botao.disabled = true;
+  botao.innerText = "Resposta Enviada!";
 
   // URL do Google Apps Script (substitua pela sua)
   const scriptURL = "https://script.google.com/macros/s/AKfycbwfwrMuPOGR5A1YoouB00BQfjXk8tAQ8jumYO6anKx-0e9imQq1qxrGa_8S9Cal3tc/exec";
